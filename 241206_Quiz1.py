@@ -48,3 +48,25 @@ plt.ylabel('Class (0 or 1)')
 plt.legend()
 
 plt.savefig("./results/linear_regression.png")
+
+# Visualize coefficients
+coefficients = model.coef_
+feature_names = column_names[:-1]  # Exclude 'class'
+
+plt.figure(figsize=(12, 6))
+plt.barh(feature_names, coefficients, color='skyblue')
+plt.title('Feature Importance based on Linear Regression Coefficients')
+plt.xlabel('Coefficient Value')
+plt.ylabel('Features')
+plt.axvline(0, color='red', linestyle='--', linewidth=1)
+plt.tight_layout()
+plt.savefig("./results/feature_coefficients.png")
+
+# Generate prediction equation
+intercept = model.intercept_
+prediction_equation = "y = {:.3f}".format(intercept)
+for i, coef in enumerate(coefficients):
+    prediction_equation += " + ({:.3f} * {})".format(coef, feature_names[i])
+
+print("Prediction Equation:")
+print(prediction_equation)
